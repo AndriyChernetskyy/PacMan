@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace PacMan
 {
-    public class Ghost :  IMove
+    public class Ghost :  IGhost
     {
         public Position ghostPos;
 
@@ -21,9 +21,9 @@ namespace PacMan
         private string symbol = ((char)9787).ToString();
 
         public string Symbol { get => symbol; }
-       
-        private Color color;
-        public string Color { get => color; }
+
+        public string Color { get; set; }
+        
         public string Direction = "up";
         
 
@@ -89,7 +89,7 @@ namespace PacMan
 
         public Ghost (string color, int x, int y)
         {
-            this.color = color;
+            this.Color = color;
             ghostPos = new Position(x, y);
             this.prevPosX = x;
             this.prevPosY = y;

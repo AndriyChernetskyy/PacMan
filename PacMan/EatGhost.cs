@@ -10,7 +10,7 @@ namespace PacMan
     {
         public void Eat(GameState score)
         {
-            if(score.isFrightened == true)
+            if( == true)
             {
                 score.Score += 200;
             }

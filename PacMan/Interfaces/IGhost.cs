@@ -6,8 +6,8 @@ using System.Threading.Tasks;
 
 namespace PacMan
 {
-    public interface IGhostFrightened
+    public interface IGhost : IMove, IColor
     {
-        void Frightened();
+
     }
 }

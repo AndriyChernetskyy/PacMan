@@ -7,40 +7,27 @@ using System.Threading.Tasks;
 
 namespace PacMan
 {
-    public class PacMan : IMove, IEatable
+    public class PacMan : IPacMan
     {
         public Position pacManPos;
 
         public Ghost[] ghosts;
 
         public Tuple<int, int> currentPosition => new Tuple<int, int>(pacManPos.X, pacManPos.Y);
-
-        private int score;
         
-        public int Score { get; protected set; }
+        public int Score { get; set; }
 
-        private int lives;
+        public int Lives { get; set; }
 
-        public int Lives { get { return this.lives; } }
-
-        private int level;
-
-        public int Level { get { return this.level; } }
+        public int Level { get; set; }
 
         private string symbol = ((char)9786).ToString();
 
         public string Symbol { get => symbol; }
 
-        private string color = "Yellow";
+        public string Color { get; set; }
+        
 
-        public string Color
-        {
-            get
-            {
-                return color;
-            }
-            
-        }
         
 
         public string Direction = "right";
@@ -49,9 +36,9 @@ namespace PacMan
         public PacMan()
         {
             pacManPos = new Position(17, 20);
-            score = 0;
-            level = 1;
-            lives = 3;
+            Score = 0;
+            Level = 1;
+            Lives = 3;
         }
 
         public void Reset()
@@ -64,15 +51,15 @@ namespace PacMan
 
         public void PacManDead()
         {
-            this.lives++;
+            this.Lives++;
         }
 
 
 
 
-        public void Eat(ItemsToEat item)
+        public void Eat(GameState score)
         {
-            this.score += item;
+            this.Score += score.Score;
         }
         /*
         public void Eat(ItemsToEat food)
@@ -109,8 +96,8 @@ namespace PacMan
 
         public void LevelUp()
         {
-            this.level++;
-            this.score = 0;
+            this.Level++;
+            this.Score = 0;
         }
 
         public Object CheckCell(string[,] border, string direction, List<Ghost> ghostList)
@@ -123,9 +110,10 @@ namespace PacMan
                         case "#":
                             return MazeElements.Wall;
                         case ".":
-                            return ItemsToEat.SimpleFood;
+                            return new SimpleFood();
+                            
                         case "*":
-                            return ItemsToEat.Energizer;
+                            return new Energizer();
                         default:
                             if (Collision(ghostList, this.pacManPos.Y - 1, this.pacManPos.X))
                             {
@@ -142,9 +130,9 @@ namespace PacMan
                         case "#":
                             return MazeElements.Wall;
                         case ".":
-                            return ItemsToEat.SimpleFood;
+                            return new SimpleFood();
                         case "*":
-                            return ItemsToEat.Energizer;
+                            return new Energizer();
                         default:
                             if (Collision(ghostList, this.pacManPos.Y + 1, this.pacManPos.X))
                             {
@@ -161,9 +149,9 @@ namespace PacMan
                         case "#":
                             return MazeElements.Wall;
                         case ".":
-                            return ItemsToEat.SimpleFood;
+                            return new SimpleFood();
                         case "*":
-                            return ItemsToEat.Energizer;
+                            return new Energizer();
                         default:
                             if (Collision(ghostList, this.pacManPos.Y, this.pacManPos.X - 1))
                             {
