@@ -41,26 +41,25 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Cherry.cs" />
+    <Compile Include="Interfaces\IColor.cs" />
     <Compile Include="EatGhost.cs" />
     <Compile Include="Energizer.cs" />
     <Compile Include="Event.cs" />
-    <Compile Include="IGameContext.cs" />
-    <Compile Include="IEatMe.cs" />
+    <Compile Include="Interfaces\IGameContext.cs" />
     <Compile Include="GameState.cs" />
-    <Compile Include="IGhost.cs" />
-    <Compile Include="IGhostFrightened.cs" />
-    <Compile Include="IEatable.cs" />
-    <Compile Include="IMovable.cs" />
-    <Compile Include="IPacMan.cs" />
+    <Compile Include="Interfaces\IGhost.cs" />
+    <Compile Include="Interfaces\IEatable.cs" />
+    <Compile Include="Interfaces\IPacMan.cs" />
     <Compile Include="ItemsToEat.cs" />
     <Compile Include="PacMan.cs" />
     <Compile Include="Ghost.cs" />
-    <Compile Include="IMove.cs" />
+    <Compile Include="Interfaces\IMove.cs" />
     <Compile Include="Maze.cs" />
     <Compile Include="MazeElements.cs" />
     <Compile Include="Position.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="SimpleFood.cs" />
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

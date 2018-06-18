@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace PacMan
 {
-    interface IGameContext
+    public interface IGameContext
     {
         int Score { get; set; }
         int Lives { get; }

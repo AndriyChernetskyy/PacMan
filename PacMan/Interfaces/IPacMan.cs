@@ -6,8 +6,8 @@ using System.Threading.Tasks;
 
 namespace PacMan
 {
-    public interface IMovable
+    public interface IPacMan : IEatable, IMove, IColor
     {
-        
+
     }
 }

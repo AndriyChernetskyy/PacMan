@@ -6,8 +6,8 @@ using System.Threading.Tasks;
 
 namespace PacMan
 {
-    public interface IEatMe
+    public interface IColor
     {
-        void CanBeEaten(ItemsToEat items);
+        string Color { get; set; }
     }
 }

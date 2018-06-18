@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace PacMan
 {
-    class SimpleFood : IEatable
+    public class SimpleFood : IEatable
     {
         Event ev = new Event();
         public void Eat(GameState score)
