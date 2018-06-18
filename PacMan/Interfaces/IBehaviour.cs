@@ -6,8 +6,7 @@ using System.Threading.Tasks;
 
 namespace PacMan
 {
-    public interface IPacMan : IEatable, IMovable
+    class IBehaviour
     {
-
     }
 }
