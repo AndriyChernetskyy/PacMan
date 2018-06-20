@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace PacMan2._0
 {
-    public class GameEngine : IMovable
+    public class GameEngine : IEatable
     {
         public ConsoleColor Color { get; set; }
         public Position Position { get; set; }
@@ -27,7 +27,13 @@ namespace PacMan2._0
             Lives--;
         }
 
-        public void GetDirection(ConsoleKey key)
+        public void Eat(IAction action)
+        {
+            action.GetScore();
+        }
+        
+
+        /*public void GetDirection(ConsoleKey key)
         {
             if (key == ConsoleKey.DownArrow)
             {
@@ -51,6 +57,8 @@ namespace PacMan2._0
         }
 
 
+   
+
         public void Move(SidesToMove stm)
         {
             if (stm == SidesToMove.Right)
@@ -69,7 +77,7 @@ namespace PacMan2._0
             {
                 this.Position.Y++;
             }
-        }
+        }*/
     }
 }
     

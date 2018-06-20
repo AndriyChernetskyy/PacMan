@@ -40,14 +40,18 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Cherry.cs" />
+    <Compile Include="Energizer.cs" />
     <Compile Include="Food.cs" />
     <Compile Include="Ghost.cs" />
+    <Compile Include="IAction.cs" />
     <Compile Include="IDirections.cs" />
     <Compile Include="GameEngine.cs" />
     <Compile Include="IEatable.cs" />
     <Compile Include="IMovable.cs" />
     <Compile Include="Maze.cs" />
     <Compile Include="PacMan.cs" />
+    <Compile Include="PointFood.cs" />
     <Compile Include="Position.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="SidesToMove.cs" />
