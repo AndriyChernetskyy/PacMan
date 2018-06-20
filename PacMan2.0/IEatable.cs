@@ -8,6 +8,6 @@ namespace PacMan2._0
 {
     public interface IEatable
     {
-        void Eat(Food food);
+        void Eat(IAction action);
     }
 }

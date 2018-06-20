@@ -6,11 +6,11 @@ using System.Threading.Tasks;
 
 namespace PacMan2._0
 {
-    public class Maze
+    public class Maze //: GameEngine
     {
-        public Position Position { get; set; }
-        private const int Width = 35;
-        private const int Length = 29;
+        //public Position Position { get; set; }
+        private const int Width = 29;
+        private const int Length = 35;
 
         public readonly string[,] Map = { 
                     {"#","#","#","#","#","#","#","#","#","#","#","#","#","#","#","#","#","#","#","#","#","#","#","#","#","#","#","#","#","#","#","#","#","#","#"},
@@ -47,5 +47,6 @@ namespace PacMan2._0
         {
             return Map;
         }
+         
     }
 }

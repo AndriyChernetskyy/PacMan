@@ -6,9 +6,8 @@ using System.Threading.Tasks;
 
 namespace PacMan2._0
 {
-    public interface IMovable : IDirections
+    public sealed class Cherry : GameEngine, IAction
     {
-        void Move(SidesToMove stm, Maze map);
-        
+        public int GetScore() => Score += 100;
     }
 }
