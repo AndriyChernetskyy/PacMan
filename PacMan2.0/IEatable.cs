@@ -6,8 +6,9 @@ using System.Threading.Tasks;
 
 namespace PacMan2._0
 {
-    public interface IEatable
+    public interface IEatable 
     {
-        void Eat(IAction action);
+        void Eat(IMaze maze, IFood food);
+        //int GetScore();
     }
 }

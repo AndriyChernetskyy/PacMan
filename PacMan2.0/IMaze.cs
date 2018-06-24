@@ -6,8 +6,9 @@ using System.Threading.Tasks;
 
 namespace PacMan2._0
 {
-    public interface IAction
+    public interface IMaze
     {
-        int GetScore();
+        string[,] Map { get; set; }
+        string[,] Draw();
     }
 }
