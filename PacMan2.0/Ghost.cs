@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace PacMan2._0
 {
-    public class Ghost : GameEngine, IEatable
+    public class Ghost : GameEngine
     {
         public string Symbol;
         public new Position Position { get; set; }
@@ -18,13 +18,7 @@ namespace PacMan2._0
             Color = color;
         }
 
-        public void Eat(Food food)
-        {
-            if (food == Food.PacMan)
-            {
-                GameOver();
-            }
-        }
+
 
         public void LookForPacMan()
         {

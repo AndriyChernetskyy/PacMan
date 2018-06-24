@@ -6,9 +6,8 @@ using System.Threading.Tasks;
 
 namespace PacMan2._0
 {
-    public interface IMovable : IDirections
+    public interface IFood
     {
-        void Move(SidesToMove stm, IMaze map);
-        
+        string Symbol { get; set; }
     }
 }

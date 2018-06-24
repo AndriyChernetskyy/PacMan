@@ -6,8 +6,11 @@ using System.Threading.Tasks;
 
 namespace PacMan2._0
 {
-    public sealed class Energizer : GameEngine, IAction
+    public sealed class Energizer : IFood
     {
-        public int GetScore() => Score += 50;
+        public string Symbol { get; set; } = "*";
+
+        //public int GetScore() => 50;
+
     }
 }

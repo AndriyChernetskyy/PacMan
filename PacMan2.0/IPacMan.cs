@@ -6,12 +6,10 @@ using System.Threading.Tasks;
 
 namespace PacMan2._0
 {
-    public enum Food
+    public interface IPacMan : IEatable, IMovable
     {
-        PointFood,
-        Cherry,
-        Energizer,
-        Ghost,
-        PacMan
+        Position Position { get; set; }
+        ConsoleColor Color { get; set; }
+
     }
 }

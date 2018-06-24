@@ -8,13 +8,13 @@ using System.Threading.Tasks;
 
 namespace PacMan2._0
 {
-    public class PacMan : GameEngine, IEatable, IMovable
+    public class PacMan : IPacMan
     {
         public readonly string Symbol = "P";
 
-        //public new Position Position { get; set; }
-        //public new ConsoleColor Color { get; set; }
-
+        public Position Position { get; set; }
+        public ConsoleColor Color { get; set; }
+        
 
         public PacMan(ConsoleColor color, Position position)
         {
@@ -22,54 +22,56 @@ namespace PacMan2._0
             Position = position;
         }
 
-        public bool CanMoveRight(Maze map) 
+        public void Eat(IMaze map, IFood food)
         {
-            return map.Map[Position.Y, Position.X + 1] != "#";
+            if (map.Map[Position.Y, Position.X] == food.Symbol)
+            {
+                map.Map[Position.Y, Position.X] = " ";
+            } 
+        }
+
+        /*public void Eat(IFood food)
+        {
+            food.GetScore();
+        }
+        */
         
-        }
 
-        public bool CanMoveLeft(Maze map)
-        {
-            return map.Map[Position.Y, Position.X - 1] != "#";
-            
-        }
+        public bool CanMoveRight(IMaze map) => map.Map[Position.Y, Position.X + 1] != "#";
+        public bool CanMoveLeft(IMaze map) => map.Map[Position.Y, Position.X - 1] != "#";
+        public bool CanMoveDown(IMaze map) => map.Map[Position.Y+1, Position.X] != "#";
+        public bool CanMoveUp(IMaze map) => map.Map[Position.Y-1, Position.X] != "#";
+         
 
-        public bool CanMoveDown(Maze map)
-        {
-            return map.Map[Position.Y+1, Position.X] != "#";
-        }
-
-        public bool CanMoveUp(Maze map)
-        {
-            return map.Map[Position.Y-1, Position.X] != "#";
-            
-        }
-
-        public void GetDirection(ConsoleKey key, Maze map)
+        public void GetDirection(ConsoleKey key, IMaze map, IFood food)
         {
             if (key == ConsoleKey.DownArrow)
             {
                 Move(SidesToMove.Down, map);
+                Eat(map, food);
             }
 
             if (key == ConsoleKey.UpArrow)
             {
                 Move(SidesToMove.Up, map);
+                Eat(map, food);
             }
 
             if (key == ConsoleKey.LeftArrow)
             {
                 Move(SidesToMove.Left, map);
+                Eat(map, food);
             }
 
             if (key == ConsoleKey.RightArrow)
             {
                 Move(SidesToMove.Right, map);
+                Eat(map, food);
             }
 
         }
 
-        public void Move(SidesToMove stm, Maze map)
+        public void Move(SidesToMove stm, IMaze map)
         {
             if (stm == SidesToMove.Right)
             {
@@ -101,7 +103,7 @@ namespace PacMan2._0
             }
         }
 
-        public void Eat(Food food)
+        /*public void Eat(Food food)
         {
             switch (food)
             {
@@ -118,7 +120,7 @@ namespace PacMan2._0
                     this.Score += 200;
                     break;
             }
-        }
+        }*/
 
 
     }

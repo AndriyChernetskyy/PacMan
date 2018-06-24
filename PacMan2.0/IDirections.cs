@@ -8,6 +8,6 @@ namespace PacMan2._0
 {
     public interface IDirections
     {
-        void GetDirection(ConsoleKey key, Maze map);
+        void GetDirection(ConsoleKey key, IMaze map, IFood food);
     }
 }

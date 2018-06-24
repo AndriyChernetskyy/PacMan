@@ -6,8 +6,22 @@ using System.Threading.Tasks;
 
 namespace PacMan2._0
 {
-    public sealed class Cherry : GameEngine, IAction
+    public sealed class Cherry : IFood
     {
-        public int GetScore() => Score += 100;
+        private string symbol = "C";
+
+        public string GetSymbol()
+        {
+            return symbol;
+        }
+
+        public void SetSymbol(string value)
+        {
+            symbol = value;
+        }
+
+        public int GetScore() => 100;
+
+        
     }
 }

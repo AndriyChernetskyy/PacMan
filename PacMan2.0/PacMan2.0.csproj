@@ -42,13 +42,15 @@
   <ItemGroup>
     <Compile Include="Cherry.cs" />
     <Compile Include="Energizer.cs" />
-    <Compile Include="Food.cs" />
     <Compile Include="Ghost.cs" />
-    <Compile Include="IAction.cs" />
     <Compile Include="IDirections.cs" />
     <Compile Include="GameEngine.cs" />
     <Compile Include="IEatable.cs" />
+    <Compile Include="GUI.cs" />
+    <Compile Include="IFood.cs" />
+    <Compile Include="IMaze.cs" />
     <Compile Include="IMovable.cs" />
+    <Compile Include="IPacMan.cs" />
     <Compile Include="Maze.cs" />
     <Compile Include="PacMan.cs" />
     <Compile Include="PointFood.cs" />
