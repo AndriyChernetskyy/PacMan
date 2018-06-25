@@ -6,8 +6,9 @@ using System.Threading.Tasks;
 
 namespace PacMan2._0
 {
-    public interface IDirections
+    public interface IEatable 
     {
-        void GetDirection(ConsoleKey key, IMaze map, IFood food);
+        void Eat(IMaze maze, List<IFood> food, GUI gui);
+        
     }
 }
