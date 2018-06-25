@@ -1,0 +1,13 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace PacMan2._0
+{
+    public interface IDirections
+    {
+        void GetDirection(ConsoleKey key, IMaze map, List<IFood> food, GUI gui);
+    }
+}

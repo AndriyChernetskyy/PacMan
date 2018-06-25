@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace PacMan2._0
 {
-    public class Position
+    public struct Position
     {
         public int X { get; set; }
         public int Y { get; set; }

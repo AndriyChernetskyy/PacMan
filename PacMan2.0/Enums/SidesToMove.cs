@@ -8,9 +8,9 @@ namespace PacMan2._0
 {
     public enum SidesToMove
     {
-        Right,
-        Left,
-        Up,
-        Down
+        Right = 0,
+        Left = 1,
+        Up = 2,
+        Down = 3
     }
 }

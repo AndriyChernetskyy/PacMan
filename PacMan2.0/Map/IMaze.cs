@@ -6,8 +6,10 @@ using System.Threading.Tasks;
 
 namespace PacMan2._0
 {
-    public interface IFood
+    public interface IMaze
     {
-        string Symbol { get; set; }
+        string[,] Map { get; set; }
+        string[,] Draw();
+        string Wall { get; set; }
     }
 }

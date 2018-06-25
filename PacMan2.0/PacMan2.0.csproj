@@ -40,23 +40,28 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Cherry.cs" />
-    <Compile Include="Energizer.cs" />
-    <Compile Include="Ghost.cs" />
-    <Compile Include="IDirections.cs" />
+    <Compile Include="Food\Cherry.cs" />
+    <Compile Include="Food\Energizer.cs" />
+    <Compile Include="Characters\Ghost.cs" />
+    <Compile Include="Interface\IDirections.cs" />
     <Compile Include="GameEngine.cs" />
-    <Compile Include="IEatable.cs" />
+    <Compile Include="Interface\IEatable.cs" />
     <Compile Include="GUI.cs" />
-    <Compile Include="IFood.cs" />
-    <Compile Include="IMaze.cs" />
-    <Compile Include="IMovable.cs" />
-    <Compile Include="IPacMan.cs" />
-    <Compile Include="Maze.cs" />
-    <Compile Include="PacMan.cs" />
-    <Compile Include="PointFood.cs" />
+    <Compile Include="Food\IFood.cs" />
+    <Compile Include="Characters\IGhost.cs" />
+    <Compile Include="Map\IMaze.cs" />
+    <Compile Include="Interface\IMovable.cs" />
+    <Compile Include="Characters\ICharacter.cs" />
+    <Compile Include="Characters\IPacMan.cs" />
+    <Compile Include="Interface\IPlayerMovable.cs" />
+    <Compile Include="Interface\ISelfMovable.cs" />
+    <Compile Include="Map\Maze.cs" />
+    <Compile Include="Characters\PacMan.cs" />
+    <Compile Include="Food\PointFood.cs" />
     <Compile Include="Position.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="SidesToMove.cs" />
+    <Compile Include="Enums\SidesToMove.cs" />
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

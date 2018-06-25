@@ -6,9 +6,13 @@ using System.Threading.Tasks;
 
 namespace PacMan2._0
 {
-    public interface IMovable : IDirections
+    public sealed class Cherry : IFood
     {
-        void Move(SidesToMove stm, IMaze map);
+        public string Symbol { get; set; } = "C";
+        
+        
+        public int GetScore() => 100;
+
         
     }
 }

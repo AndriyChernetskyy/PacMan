@@ -10,7 +10,7 @@ namespace PacMan2._0
     {
         public string Symbol { get; set; } = "*";
 
-        //public int GetScore() => 50;
+        public int GetScore() => 50;
 
     }
 }

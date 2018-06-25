@@ -6,9 +6,8 @@ using System.Threading.Tasks;
 
 namespace PacMan2._0
 {
-    public interface IMaze
+    public interface IMovable : IPlayerMovable, IDirections
     {
-        string[,] Map { get; set; }
-        string[,] Draw();
+        
     }
 }
