@@ -8,6 +8,6 @@ namespace PacMan2._0
 {
     public interface IPlayerMovable
     {
-        void Move(SidesToMove stm, IMaze map);
+        void Move(SidesToMove stm);
     }
 }

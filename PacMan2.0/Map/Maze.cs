@@ -52,6 +52,11 @@ namespace PacMan2._0
         {
             return Map;
         }
-         
+
+        public void deleteBreadCrums()
+        {
+
+        }
+
     }
 }
