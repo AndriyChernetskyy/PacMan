@@ -8,6 +8,6 @@ namespace PacMan2._0
 {
     public interface ISelfMovable
     {
-        void Move(SidesToMove stm, IMaze map);
+        int Move();
     }
 }

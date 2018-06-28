@@ -13,24 +13,26 @@ namespace PacMan2._0
         public readonly string Symbol = "P";
 
         public Position position;
+        public IMaze Map { get; set; }
         public Position Position { get => position; set => position = value; }
         public ConsoleColor Color { get; set; }
         
 
-        public PacMan(ConsoleColor color, Position position)
+        public PacMan(IMaze map, ConsoleColor color, Position position)
         {
+            Map = map;
             Color = ConsoleColor.Yellow;
             Position = position;
         }
 
-        public void Eat(IMaze map, List<IFood> foods, GUI gui)
+        public void Eat(List<IFood> foods, GUI gui)
         {
             foreach (var food in foods)
             {
-                if (map.Map[Position.Y, Position.X] == food.Symbol)
+                if (Map.Map[Position.Y, Position.X] == food.Symbol)
                 {
                     gui.AddToScore(food);
-                    map.Map[Position.Y, Position.X] = " ";
+                    Map.Map[Position.Y, Position.X] = " ";
                 }
             }
             
@@ -39,56 +41,56 @@ namespace PacMan2._0
         
         
 
-        public void GetDirection(ConsoleKey key, IMaze map, List<IFood> food, GUI gui)
+        public void GetDirection(ConsoleKey key, List<IFood> food, GUI gui)
         {
             switch (key)
             {
                 case ConsoleKey.DownArrow:
-                    Move(SidesToMove.Down, map);
-                    Eat(map, food, gui);
+                    Move(SidesToMove.Down);
+                    Eat(food, gui);
                     break;
                 case ConsoleKey.UpArrow:
-                    Move(SidesToMove.Up, map);
-                    Eat(map, food, gui);
+                    Move(SidesToMove.Up);
+                    Eat(food, gui);
                     break;
                 case ConsoleKey.RightArrow:
-                    Move(SidesToMove.Right, map);
-                    Eat(map, food, gui);
+                    Move(SidesToMove.Right);
+                    Eat(food, gui);
                     break;
                 case ConsoleKey.LeftArrow:
-                    Move(SidesToMove.Left, map);
-                    Eat(map, food, gui);
+                    Move(SidesToMove.Left);
+                    Eat(food, gui);
                     break;
             }
             
         }
 
-        public void Move(SidesToMove stm, IMaze map)
+        public void Move(SidesToMove stm)
         {
             switch (stm)
             {
                 case SidesToMove.Right:
-                    if (map.Map[Position.Y, Position.X + 1] != map.Wall)
+                    if (Map.Map[Position.Y, Position.X + 1] != Map.Wall)
                     {
                         position.X++;
                     }
                     break;
                 case SidesToMove.Left:
-                    if (map.Map[Position.Y, Position.X - 1] != map.Wall)
+                    if (Map.Map[Position.Y, Position.X - 1] != Map.Wall)
                     {
                         position.X--;
                     }
 
                     break;
                 case SidesToMove.Up:
-                    if (map.Map[Position.Y - 1, Position.X] != map.Wall)
+                    if (Map.Map[Position.Y - 1, Position.X] != Map.Wall)
                     {
                         position.Y--;
                     }
 
                     break;
                 case SidesToMove.Down:
-                    if (map.Map[Position.Y + 1, Position.X] != map.Wall)
+                    if (Map.Map[Position.Y + 1, Position.X] != Map.Wall)
                     {
                         position.Y++;
                     }

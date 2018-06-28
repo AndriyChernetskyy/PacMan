@@ -9,9 +9,7 @@ namespace PacMan2._0
 {
     public class GameEngine : GUI
     {
-        public ConsoleColor Color { get; set; }
-        public Position Position { get; set; }
-
+        
 
         public void GameOver() => Lives--;
 

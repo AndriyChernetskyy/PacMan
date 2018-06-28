@@ -4,11 +4,10 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace PacMan2._0
+namespace PacMan2._0.Interface
 {
-    public interface IEatable 
+    public interface IAction
     {
-        void Eat(List<IFood> food, GUI gui);
-        
+        void Collide();
     }
 }

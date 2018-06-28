@@ -43,6 +43,8 @@
     <Compile Include="Food\Cherry.cs" />
     <Compile Include="Food\Energizer.cs" />
     <Compile Include="Characters\Ghost.cs" />
+    <Compile Include="Collision.cs" />
+    <Compile Include="Interface\IAction.cs" />
     <Compile Include="Interface\IDirections.cs" />
     <Compile Include="GameEngine.cs" />
     <Compile Include="Interface\IEatable.cs" />
