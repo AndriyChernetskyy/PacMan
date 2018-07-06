@@ -6,11 +6,12 @@ using System.Threading.Tasks;
 using PacMan2._0.Characters;
 using PacMan2._0.Food;
 
-namespace PacMan2._0.Interface
+namespace PacMan2._0.Actions
 {
-    public interface IEatable 
+    public interface IRunAway
     {
-        void Eat(List<IFood> food, GUI gui, Ghost ghost);
-        
+        bool IsScared { get; set; }
+       // void Scared(PacMan pacMan, Ghost ghost, Energizer energizer);
+
     }
 }

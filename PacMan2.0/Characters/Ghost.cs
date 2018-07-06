@@ -5,18 +5,45 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Threading;
-using PacMan2._0.Interface;
+using PacMan2._0.Map;
+using PacMan2._0.VisitorPattern;
+using PacMan2._0.AStarAlgotithm;
+using PacMan2._0.Actions;
+using PacMan2._0.Food;
 
-namespace PacMan2._0
+namespace PacMan2._0.Characters
 {
-    public class Ghost : GameEngine, IGhost
+    public class Ghost : Element, IGhost
     {
-        private Position position;
+        public Position position;
         public IMaze Map { get; set; }
-        
-        public string Symbol { get; set; } = "G";
+        public ICollision Collision { get; set; }
+
+        public bool IsScared { get; set; }
+        public List<Position> Curposition;
+        public new string Symbol { get; set; } = "G";
         public Position Position { get => position; set => position = value; }
         public ConsoleColor Color { get; set; }
+
+
+        public void Scared(PacMan pacMan)
+        {
+            IsScared = false;
+            var waitTime = new TimeSpan(0, 0, 10);
+            var waitUntil = DateTime.Now + waitTime;
+
+            while (DateTime.Now <= waitUntil)
+            {
+                IsScared = true;
+            }
+
+            if (IsScared)
+            {
+                position.X = pacMan.position.X + 2;
+                position.Y = pacMan.position.Y + 2;
+            }
+        }
+
 
         public Ghost(IMaze map, ConsoleColor color, Position position)
         {
@@ -25,104 +52,57 @@ namespace PacMan2._0
             Color = color;
         }
 
-        
-        public async void Push()
-        {
-            //Task<int> task = new Task<int>(Move);
-            await Task.Run(() => Move());
 
-            var a =  Task.Run(() => Move());
-            // blablabla
-            
-            await a;
+
+        public override Position Accept(Visitor visitor) => visitor.VisitElementB(this);
+
+
+        public async void Push(PacMan pacMan, GUI gui, AStar algo)
+        {
+            await Task.Run(() => Move(pacMan, gui, algo));
         }
 
-        
 
-        public int Move()
+        public Position GetCurrentPosition() => this.Position;
+
+
+        public async void Move(PacMan pacMan, GUI gui, AStar algo)
         {
-            while (true)
+
+            algo.Execute(this, pacMan, Map);
+
+            Curposition = new List<Position>(algo.ResultPath.Capacity);
+
+            foreach (var item in algo.ResultPath)
             {
-                Position temp = new Position()
-                {
-                    X = Position.X,
-                    Y = Position.Y
-                };
-
-                Console.SetCursorPosition(temp.X, temp.Y);
-                Console.WriteLine(" ");
-
-                Random rnd = new Random();
-                int result = rnd.Next(4);
-                SidesToMove sd = SidesToMove.Down;
-                for (int i = 0; i < 4; i++)
-                {
-                    if (result == (int) SidesToMove.Down)
-                    {
-                        sd = SidesToMove.Down;
-                    }
-
-                    if (result == (int) SidesToMove.Left)
-                    {
-                        sd = SidesToMove.Left;
-                    }
-
-                    if (result == (int) SidesToMove.Right)
-                    {
-                        sd = SidesToMove.Right;
-                    }
-
-                    if (result == (int) SidesToMove.Up)
-                    {
-                        sd = SidesToMove.Up;
-                    }
-                }
-
-
-
-                switch (sd)
-                {
-                    case SidesToMove.Right:
-                        if (Map.Map[Position.Y, Position.X + 1] != Map.Wall)
-                        {
-                            position.X++;
-                        }
-
-                        break;
-                    case SidesToMove.Left:
-                        if (Map.Map[Position.Y, Position.X - 1] != Map.Wall)
-                        {
-                            position.X--;
-                        }
-
-                        break;
-                    case SidesToMove.Up:
-                        if (Map.Map[Position.Y - 1, Position.X] != Map.Wall)
-                        {
-                            position.Y--;
-                        }
-
-                        break;
-                    case SidesToMove.Down:
-                        if (Map.Map[Position.Y + 1, Position.X] != Map.Wall)
-                        {
-                            position.Y++;
-                        }
-
-                        break;
-                }
-
-                Console.SetCursorPosition(Position.X, Position.Y);
-                Console.WriteLine(Symbol);
-                Thread.Sleep(500);
-               
+                Curposition.Add(new Position(item.X, item.Y));
             }
 
-            return 0;
+
+
+            foreach (var V in Curposition)
+            {
+                position.X = V.X;
+                position.Y = V.Y;
+                await Task.Delay(250);
+            }
+
+
+            Collision = new Collision();
+            Collision.Collide(pacMan, this, gui);
+
+            if (gui.Lives < 1)
+            {
+
+                Environment.Exit(0);
+            }
+
+            Thread.Sleep(500);
+
         }
 
 
 
-        
+
     }
 }

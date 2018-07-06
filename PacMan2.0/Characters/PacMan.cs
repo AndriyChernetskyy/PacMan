@@ -1,18 +1,23 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Data;
-using System.Linq;
-using System.Runtime.Remoting.Messaging;
-using System.Text;
-using System.Threading.Tasks;
+using PacMan2._0.Actions;
+using PacMan2._0.Food;
+using PacMan2._0.VisitorPattern;
+using PacMan2._0.Map;
 
-namespace PacMan2._0
+
+
+namespace PacMan2._0.Characters
 {
-    public class PacMan : IPacMan
+    public class PacMan : Element, IPacMan
     {
-        public readonly string Symbol = "P";
-
+        public string symbol = "P";
         public Position position;
+        public new string Symbol
+        {
+            get => this.symbol;
+            set => this.symbol = value;
+        }
         public IMaze Map { get; set; }
         public Position Position { get => position; set => position = value; }
         public ConsoleColor Color { get; set; }
@@ -25,13 +30,23 @@ namespace PacMan2._0
             Position = position;
         }
 
-        public void Eat(List<IFood> foods, GUI gui)
+        public override Position Accept(Visitor visitor)
+        {
+            return visitor.VisitElementA(this);
+        }
+
+
+        public void Eat(List<IFood> foods, GUI gui, Ghost ghost)
         {
             foreach (var food in foods)
             {
                 if (Map.Map[Position.Y, Position.X] == food.Symbol)
                 {
                     gui.AddToScore(food);
+                    if (food is Energizer)
+                    {
+                        ((Energizer)food).MakeGhostScared(ghost, this);
+                    }
                     Map.Map[Position.Y, Position.X] = " ";
                 }
             }
@@ -41,29 +56,34 @@ namespace PacMan2._0
         
         
 
-        public void GetDirection(ConsoleKey key, List<IFood> food, GUI gui)
+        public void GetDirection(ConsoleKey key, List<IFood> food, GUI gui, Ghost ghost)
         {
             switch (key)
             {
                 case ConsoleKey.DownArrow:
                     Move(SidesToMove.Down);
-                    Eat(food, gui);
+                    Eat(food, gui, ghost);
                     break;
                 case ConsoleKey.UpArrow:
                     Move(SidesToMove.Up);
-                    Eat(food, gui);
+                    Eat(food, gui, ghost);
                     break;
                 case ConsoleKey.RightArrow:
                     Move(SidesToMove.Right);
-                    Eat(food, gui);
+                    Eat(food, gui, ghost);
                     break;
                 case ConsoleKey.LeftArrow:
                     Move(SidesToMove.Left);
-                    Eat(food, gui);
+                    Eat(food, gui, ghost);
                     break;
             }
-            
+
         }
+
+        public Position GetCurrentPosition() => this.position;
+        
+
+
 
         public void Move(SidesToMove stm)
         {
