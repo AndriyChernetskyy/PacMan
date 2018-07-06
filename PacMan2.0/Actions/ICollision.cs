@@ -3,15 +3,12 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using PacMan2._0.Actions;
 using PacMan2._0.Characters;
-using PacMan2._0.Interface;
 
-namespace PacMan2._0.Food
+namespace PacMan2._0.Actions
 {
-    public interface IFood : ICharacter
+    public interface ICollision
     {
-        int GetScore();
-        
+        void Collide(PacMan pacMan, Ghost ghost, GUI gui);
     }
 }

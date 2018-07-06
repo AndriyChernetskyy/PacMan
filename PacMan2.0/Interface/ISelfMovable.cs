@@ -1,13 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using PacMan2._0.AStarAlgotithm;
+using PacMan2._0.Characters;
+using PacMan2._0.Food;
 
-namespace PacMan2._0
+namespace PacMan2._0.Interface
 {
     public interface ISelfMovable
     {
-        int Move();
+        void Move(PacMan pacMan, GUI gui, AStar algo);
     }
 }

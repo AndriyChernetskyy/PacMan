@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using PacMan2._0.Food;
 
 namespace PacMan2._0
 {
@@ -16,7 +17,9 @@ namespace PacMan2._0
         public int Lives { get => lives; set => lives = value; }
         public int Score { get => score; set => score = value; }
 
-        
+
+        public void GameOver() => Lives--;
+
         public void AddToScore(IFood food)
         {
             score += food.GetScore();
@@ -29,6 +32,7 @@ namespace PacMan2._0
             this.level = 0;
         }
 
+       
 
     }
 }

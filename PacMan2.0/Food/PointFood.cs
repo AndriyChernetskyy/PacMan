@@ -3,8 +3,10 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using PacMan2._0.Actions;
+using PacMan2._0.Characters;
 
-namespace PacMan2._0
+namespace PacMan2._0.Food
 {
     public sealed class PointFood : IFood
     {
@@ -12,6 +14,5 @@ namespace PacMan2._0
 
         public int GetScore() => 1;
 
-        
     }
 }
