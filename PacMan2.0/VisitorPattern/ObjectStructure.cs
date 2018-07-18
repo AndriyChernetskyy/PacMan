@@ -13,7 +13,7 @@ namespace PacMan2._0.VisitorPattern
             foreach (Element element in elements)
             {
                 element.SomePosition = element.Accept(visitor);
-                element.Symbol = "G";
+                element._Symbol = "G";
             }
         }
 

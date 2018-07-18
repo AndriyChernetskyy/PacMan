@@ -11,24 +11,21 @@ namespace PacMan2._0.Characters
 {
     public class PacMan : Element, IPacMan
     {
-        public string symbol = "P";
         public Position position;
-        public new string Symbol
-        {
-            get => this.symbol;
-            set => this.symbol = value;
-        }
+        public string Symbol { get; set; } = "P";
         public IMaze Map { get; set; }
         public Position Position { get => position; set => position = value; }
-        public ConsoleColor Color { get; set; }
+        public string Color { get; set; }
         
 
-        public PacMan(IMaze map, ConsoleColor color, Position position)
+        public PacMan(IMaze map, string color, Position position)
         {
             Map = map;
-            Color = ConsoleColor.Yellow;
+            Color = color;
             Position = position;
         }
+
+        public PacMan() { }
 
         public override Position Accept(Visitor visitor)
         {
@@ -36,7 +33,7 @@ namespace PacMan2._0.Characters
         }
 
 
-        public void Eat(List<IFood> foods, GUI gui, Ghost ghost)
+        public void Eat(List<IFood> foods, GUI gui, IGhost ghost)
         {
             foreach (var food in foods)
             {
@@ -56,7 +53,7 @@ namespace PacMan2._0.Characters
         
         
 
-        public void GetDirection(ConsoleKey key, List<IFood> food, GUI gui, Ghost ghost)
+        public void GetDirection(ConsoleKey key, List<IFood> food, GUI gui, IGhost ghost)
         {
             switch (key)
             {

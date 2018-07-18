@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace PacMan2._0.Interface
 {
-    public interface IMovable : IPlayerMovable, IDirections
+    public interface IMovable
     {
         
     }

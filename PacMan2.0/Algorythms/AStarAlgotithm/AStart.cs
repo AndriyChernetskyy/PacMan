@@ -3,23 +3,24 @@ using System.Collections.Generic;
 using System.Linq;
 using PacMan2._0.Map;
 using PacMan2._0.Characters;
+using PacMan2._0.Algorythms;
 
 namespace PacMan2._0.AStarAlgotithm
 {
 
 
-    public class AStar
+    public class AStar : IAlgorythm
     {
-        public Location current;
-        public Location start;
-        public Location target;
-        public List<Location> openList;
-        public List<Location> closedList;
+        public Location current { get; set; }
+        public Location start { get; set; }
+        public Location target { get; set; }
+        public List<Location> openList { get; set; }
+        public List<Location> closedList { get; set; }
         public int g = 0;
-        public List<Location> ResultPath;
+        public List<Location> ResultPath { get; set; }
 
         
-        public void Execute(Ghost ghost, PacMan pacMan, IMaze map)
+        public void Execute(IGhost ghost, IPacMan pacMan, IMaze map)
         {
          
             if (pacMan.Position.X != target.X || pacMan.Position.Y != target.Y)

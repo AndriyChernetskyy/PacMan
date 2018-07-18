@@ -9,9 +9,9 @@ using PacMan2._0.Interface;
 
 namespace PacMan2._0.Food
 {
-    public interface IFood : ICharacter
+    public interface IFood
     {
         int GetScore();
-        
+        string Symbol { get; set; }
     }
 }
