@@ -10,7 +10,7 @@ namespace PacMan2._0.Interface
 {
     public interface IEatable 
     {
-        void Eat(List<IFood> food, GUI gui, Ghost ghost);
+        void Eat(List<IFood> food, GUI gui, IGhost ghost);
         
     }
 }
