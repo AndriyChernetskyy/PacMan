@@ -9,5 +9,6 @@ namespace PacMan2._0.Characters
     public interface ICharacter
     {
         string Symbol { get; set; }
+        string Color { get; set; }
     }
 }

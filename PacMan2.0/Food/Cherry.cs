@@ -11,11 +11,6 @@ namespace PacMan2._0.Food
     public sealed class Cherry : IFood
     {
         public string Symbol { get; set; } = "C";
-        
-        
         public int GetScore() => 100;
-
-   
-
     }
 }
