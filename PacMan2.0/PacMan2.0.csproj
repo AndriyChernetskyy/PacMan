@@ -49,6 +49,7 @@
     <Compile Include="Food\Energizer.cs" />
     <Compile Include="Characters\Ghost.cs" />
     <Compile Include="Actions\Collision.cs" />
+    <Compile Include="Game.cs" />
     <Compile Include="Interface\IDirections.cs" />
     <Compile Include="Interface\IEatable.cs" />
     <Compile Include="GUI.cs" />
