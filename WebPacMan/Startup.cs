@@ -9,6 +9,15 @@ using Microsoft.AspNetCore.HttpsPolicy;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using PacMan2._0.Characters;
+using PacMan2._0.Actions;
+using PacMan2._0.Algorythms;
+using PacMan2._0.Food;
+using PacMan2._0.Interface;
+using PacMan2._0.Map;
+using PacMan2._0.VisitorPattern;
+using PacMan2._0;
+using WebPacMan.Hubs;
 
 namespace WebPacMan
 {
@@ -21,21 +30,19 @@ namespace WebPacMan
 
         public IConfiguration Configuration { get; }
 
-        // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
             services.Configure<CookiePolicyOptions>(options =>
             {
-                // This lambda determines whether user consent for non-essential cookies is needed for a given request.
                 options.CheckConsentNeeded = context => true;
                 options.MinimumSameSitePolicy = SameSiteMode.None;
             });
 
             services.AddSignalR();
+            services.AddSingleton(game => new Game());
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
         }
 
-        // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IHostingEnvironment env)
         {
             if (env.IsDevelopment())
@@ -52,12 +59,19 @@ namespace WebPacMan
             app.UseStaticFiles();
             app.UseCookiePolicy();
 
+            app.UseSignalR(routes =>
+            {
+                routes.MapHub<PacmanHub>("/game");
+            });
+
             app.UseMvc(routes =>
             {
                 routes.MapRoute(
                     name: "default",
                     template: "{controller=Home}/{action=Index}/{id?}");
             });
+
+
         }
     }
 }

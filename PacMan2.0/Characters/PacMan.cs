@@ -13,13 +13,15 @@ namespace PacMan2._0.Characters
     {
         public Position position;
         public string Symbol { get; set; } = "P";
+        public string ID { get; set; }
         public IMaze Map { get; set; }
         public Position Position { get => position; set => position = value; }
         public string Color { get; set; }
         
 
-        public PacMan(IMaze map, string color, Position position)
+        public PacMan(string ID, IMaze map, string color, Position position)
         {
+            this.ID = ID;
             Map = map;
             Color = color;
             Position = position;
@@ -53,23 +55,23 @@ namespace PacMan2._0.Characters
         
         
 
-        public void GetDirection(ConsoleKey key, List<IFood> food, GUI gui, IGhost ghost)
+        public void GetDirection(string direction, List<IFood> food, GUI gui, IGhost ghost)
         {
-            switch (key)
+            switch (direction)
             {
-                case ConsoleKey.DownArrow:
+                case "down":
                     Move(SidesToMove.Down);
                     Eat(food, gui, ghost);
                     break;
-                case ConsoleKey.UpArrow:
+                case "up":
                     Move(SidesToMove.Up);
                     Eat(food, gui, ghost);
                     break;
-                case ConsoleKey.RightArrow:
+                case "right":
                     Move(SidesToMove.Right);
                     Eat(food, gui, ghost);
                     break;
-                case ConsoleKey.LeftArrow:
+                case "left":
                     Move(SidesToMove.Left);
                     Eat(food, gui, ghost);
                     break;
