@@ -41,14 +41,15 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Actions\ICollision.cs" />
-    <Compile Include="Actions\IRunAway.cs" />
-    <Compile Include="Actions\RunAway.cs" />
-    <Compile Include="AStarAlgotithm\AStart.cs" />
-    <Compile Include="AStarAlgotithm\Location.cs" />
+    <Compile Include="Algorythms\IAlgorythm.cs" />
+    <Compile Include="Algorythms\IAStar.cs" />
+    <Compile Include="Algorythms\AStarAlgotithm\AStart.cs" />
+    <Compile Include="Algorythms\AStarAlgotithm\Location.cs" />
     <Compile Include="Food\Cherry.cs" />
     <Compile Include="Food\Energizer.cs" />
     <Compile Include="Characters\Ghost.cs" />
     <Compile Include="Actions\Collision.cs" />
+    <Compile Include="Game.cs" />
     <Compile Include="Interface\IDirections.cs" />
     <Compile Include="Interface\IEatable.cs" />
     <Compile Include="GUI.cs" />

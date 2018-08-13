@@ -4,6 +4,6 @@
     {
         public abstract Position Accept(Visitor visitor);
         public Position SomePosition { get; set; }
-        public string Symbol { get; set; }
+        public string _Symbol { get; set; }
     }
 }

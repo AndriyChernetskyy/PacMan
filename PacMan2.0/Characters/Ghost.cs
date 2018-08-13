@@ -9,6 +9,7 @@ using PacMan2._0.Map;
 using PacMan2._0.VisitorPattern;
 using PacMan2._0.AStarAlgotithm;
 using PacMan2._0.Actions;
+using PacMan2._0.Algorythms;
 using PacMan2._0.Food;
 
 namespace PacMan2._0.Characters
@@ -20,13 +21,13 @@ namespace PacMan2._0.Characters
         public ICollision Collision { get; set; }
 
         public bool IsScared { get; set; }
-        public List<Position> Curposition;
-        public new string Symbol { get; set; } = "G";
+        public List<Position> CurrentPositions;
+        public string Symbol { get; set; } = "G";
         public Position Position { get => position; set => position = value; }
-        public ConsoleColor Color { get; set; }
+        public string Color { get; set; }
 
 
-        public void Scared(PacMan pacMan)
+        public void Scared(IPacMan pacMan)
         {
             IsScared = false;
             var waitTime = new TimeSpan(0, 0, 10);
@@ -39,25 +40,25 @@ namespace PacMan2._0.Characters
 
             if (IsScared)
             {
-                position.X = pacMan.position.X + 2;
-                position.Y = pacMan.position.Y + 2;
+                position.X = pacMan.Position.X + 2;
+                position.Y = pacMan.Position.Y + 2;
             }
         }
 
 
-        public Ghost(IMaze map, ConsoleColor color, Position position)
+        public Ghost(IMaze map, string color, Position position)
         {
             Map = map;
             Position = position;
             Color = color;
         }
 
-
+        public Ghost() { }
 
         public override Position Accept(Visitor visitor) => visitor.VisitElementB(this);
 
 
-        public async void Push(PacMan pacMan, GUI gui, AStar algo)
+        public async void Push(PacMan pacMan, GUI gui, IAlgorythm algo)
         {
             await Task.Run(() => Move(pacMan, gui, algo));
         }
@@ -66,30 +67,29 @@ namespace PacMan2._0.Characters
         public Position GetCurrentPosition() => this.Position;
 
 
-        public async void Move(PacMan pacMan, GUI gui, AStar algo)
+        public async void Move(PacMan pacMan, GUI gui, IAlgorythm algo)
         {
 
             algo.Execute(this, pacMan, Map);
 
-            Curposition = new List<Position>(algo.ResultPath.Capacity);
+            CurrentPositions = new List<Position>(algo.ResultPath.Capacity);
 
             foreach (var item in algo.ResultPath)
             {
-                Curposition.Add(new Position(item.X, item.Y));
+                CurrentPositions.Add(new Position(item.X, item.Y));
             }
 
 
-
-            foreach (var V in Curposition)
+            foreach (var currentPosition in CurrentPositions)
             {
-                position.X = V.X;
-                position.Y = V.Y;
+                position.X = currentPosition.X;
+                position.Y = currentPosition.Y;
                 await Task.Delay(250);
             }
 
 
             Collision = new Collision();
-            Collision.Collide(pacMan, this, gui);
+            Collision.Collide(new PacMan(), this, gui);
 
             if (gui.Lives < 1)
             {
@@ -97,12 +97,9 @@ namespace PacMan2._0.Characters
                 Environment.Exit(0);
             }
 
-            Thread.Sleep(500);
-
+            await Task.Delay(500);
+            
         }
-
-
-
-
+        
     }
 }
