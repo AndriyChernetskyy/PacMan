@@ -1,0 +1,140 @@
+﻿@font-face {
+    font-family: PacManFont;
+    src: url('crackman front.ttf');
+}
+
+#SeeMore {
+    font-family: PacManFont;
+    font-size: 20px;
+    position: absolute;
+    visibility: hidden;
+    margin-left: 370px;
+    margin-top: -115px;
+    color: yellow;
+}
+
+#canvas{
+    margin-top: 60px;
+    text-align: center;
+}
+
+#FieldForLevel {
+    font-family: PacManFont;
+    font-size: 40px;
+    color: blue;
+    letter-spacing: 3px;
+    position: absolute;
+    left: 1050px;
+    top: 200px;
+}
+
+#Resume {
+    position: absolute;
+    left: 1050px;
+    top: 500px;
+}
+
+#FieldForPoints {
+    font-family: PacManFont;
+    font-size: 40px;
+    color: blue;
+    letter-spacing: 3px;
+    position: absolute;
+    left: 1050px;
+    top: 100px;
+}
+
+#FieldForLives {
+    font-family: PacManFont;
+    font-size: 40px;
+    color: blue;
+    letter-spacing: 3px;
+    position: absolute;
+    left: 1050px;
+    top: 150px;
+}
+
+
+#formRegistration {
+    position: absolute;
+    top: 350px;
+    left: 700px;
+    visibility: hidden;
+}
+
+#menu{
+    position: absolute;
+    top:300px;
+    left: 680px;
+}
+
+table {
+    background-color: black;
+    border: none;
+    font-family: PacManFont;
+    font-size: 20px;
+    color: yellow;
+}
+
+td, th {
+    padding: 5px;
+    text-align: left;
+}
+
+button {
+    background-color: black;
+    border: none;
+    font-family: PacManFont;
+    font-size: 20px;
+    color: yellow;
+}
+
+#Scores {
+    margin-left: 10px;
+}
+
+#FAQ {
+    margin-left: 12px;
+}
+
+#About {
+    margin-left: 25px;
+}
+
+#Form {
+    position :absolute;
+    visibility: hidden;
+    left: 700px;
+    top: 280px;
+}
+
+#ans {
+    background-color: black;
+    border: none;
+    font-family: PacManFont;
+    font-size: 20px;
+    color: yellow;
+    left: 600px;
+    top: 250px;
+}
+
+#Submit {
+    margin-left: 40px;
+    margin-top: 20px;
+}
+
+
+
+#DataAboutPlayers {
+    left: 680px;
+    top: 280px;
+    visibility: hidden;
+    position: absolute;
+}
+
+#Back {
+    left: 750px;
+    visibility: hidden;
+    position: absolute;
+    top: 450px;
+}

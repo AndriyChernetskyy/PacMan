@@ -1,0 +1,388 @@
+﻿@{
+    ViewData["Title"] = "Home Page";
+}
+@using PacWeb.Models;
+@model List<PlayerInfo> 
+
+
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <style>
+        canvas {
+            border: 1px solid #d3d3d3;
+            background-color: #f1f1f1;
+        }
+    </style>
+    <link rel="stylesheet" href="~/css/index.css" />
+</head>
+<body>
+    <h6 hidden="hidden" id="id">@ViewBag.Id</h6>
+
+    <div id="canvas">
+        <canvas id="MapCanvas" width="448" height="496"></canvas>
+    </div>
+    <div id="FieldForPoints"></div>
+    <div id="FieldForLives"></div>
+    <div id="FieldForLevel"></div>
+
+    <div id="Form">
+        <input id="ans" type="text" placeholder="Enter your name" name="name" required>
+        <br />
+        <button id="Submit">Submit</button>
+    </div>
+
+    <div id="menu">
+        <button id="Start">Start new game</button>
+        <br /><br />
+        <button id="Scores">Hight Scores</button>
+        <br /><br />
+        <button id="FAQ">FAQ/Manual</button>
+        <br /><br />
+        <button id="About">About</button>
+    </div>
+
+
+
+    <table id="DataAboutPlayers">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Name</th>
+                <th>Score</th>
+            </tr>
+        </thead>
+        <tbody>
+            @{
+
+
+                for (int i = 0; i < 3; i++)
+                {
+                    <tr>
+                        <td>@Model[i].Id</td>
+                        <td>@Model[i].Name</td>
+                        <td>@Model[i].Score</td>
+                    </tr>
+                }
+            }
+
+        </tbody>
+    </table>
+    <a id="SeeMore" asp-controller="Home" asp-action="Results">See more</a>
+
+    <button id="Resume">Restart Game</button>
+
+    <button id="Back">Back</button>
+
+
+    <script src="~/js/signalr.min.js"></script>
+    <script>
+
+
+        var canvas = document.getElementById("MapCanvas");
+        var context = canvas.getContext("2d");
+        function Shape(x, y, w, h, fillColor) {
+            this.x = x;
+            this.y = y;
+            this.w = w;
+            this.h = h;
+            this.fillColor = fillColor;
+        }
+
+        var TitleImage = new Image();
+        TitleImage.onload = () => {
+            context.drawImage(TitleImage, 0, 0, canvas.width, canvas.height);
+        }
+        TitleImage.src = "images/PacManIntroImage.jpg";
+
+
+        var myRect = [];
+
+        const hubConnection = new signalR.HubConnectionBuilder()
+            .withUrl("/game")
+            .build();
+        hubConnection.start().catch(err => console.error(err.toString()));
+
+
+        var id = document.getElementById("id").innerText;
+
+        hubConnection.on("connect", () => {
+            hubConnection.invoke("ConnectToGroup", id);
+        });
+
+
+        document.getElementById("Submit").addEventListener("click", function () {
+            var answer = document.getElementById("ans").value;
+            hubConnection.invoke("SubmitForm", answer, id);
+            document.getElementById("Back").style.visibility = "hidden";
+            document.getElementById("Form").style.visibility = "hidden";
+            hubConnection.invoke("DrawMap", id);
+
+        });
+
+        document.getElementById("Resume").addEventListener("click", function () {
+            hubConnection.invoke("RestartGame", id);
+        });
+
+        document.getElementById("FAQ").addEventListener("click", function () {
+            document.getElementById("Back").style.visibility = "visible";
+            document.getElementById("menu").style.visibility = "hidden";
+            var RulesImage = new Image();
+            RulesImage.onload = () => {
+                context.drawImage(RulesImage, 0, 0, canvas.width, canvas.height);
+            }
+            RulesImage.src = "images/Rules.png";
+        });
+
+
+        document.getElementById("Back").addEventListener("click", function () {
+            document.getElementById("menu").style.visibility = "visible";
+            document.getElementById("DataAboutPlayers").style.visibility = "hidden";
+            document.getElementById("Back").style.visibility = "hidden";
+            document.getElementById("Form").style.visibility = "hidden";
+            document.getElementById("SeeMore").style.visibility = "hidden";
+            var TitleImage = new Image();
+            TitleImage.onload = () => {
+                context.drawImage(TitleImage, 0, 0, canvas.width, canvas.height);
+            }
+            TitleImage.src = "images/PacManIntroImage.jpg";
+
+        });
+
+        document.getElementById("Scores").addEventListener("click", function () {
+            document.getElementById("menu").style.visibility = "hidden";
+            document.getElementById("DataAboutPlayers").style.visibility = "visible";
+            document.getElementById("Back").style.visibility = "visible";
+            document.getElementById("SeeMore").style.visibility = "visible";
+        });
+
+
+        document.getElementById("Start").addEventListener("click", function () {
+            document.getElementById("menu").style.visibility = "hidden";
+            document.getElementById("Form").style.visibility = "visible";
+            document.getElementById("Back").style.visibility = "visible";
+        });
+
+        function deleteCrums(prevX, prevY) {
+            context.fillStyle = "black";
+            context.fillRect(prevX * 16, prevY * 16, 16, 16);
+        };
+
+        hubConnection.on("PrintPacMan", (pacmanPicture, x, y, prevX, prevY, points, lives, level) => {
+
+            document.getElementById("FieldForPoints").innerHTML = "Score: " + points;
+            document.getElementById("FieldForLives").innerHTML = "Lives : " + lives;
+            document.getElementById("FieldForLevel").innerHTML = "Level : " + level;
+            var pacmanInMove = new Image();
+            var pacmanCircle = new Image();
+            pacmanInMove.onload = () => {
+                context.fillStyle = "black";
+                context.fillRect(prevX * 16, prevY * 16, 16, 16);
+                context.drawImage(pacmanInMove, x * 16, y * 16, 16, 16);
+                setTimeout(function () {
+                    context.fillStyle = "black";
+                    context.fillRect(prevX * 16, prevY * 16, 16, 16);
+                    context.drawImage(pacmanCircle, x * 16, y * 16, 16, 16)
+                }, 110)
+
+
+            };
+            pacmanCircle.src = "images/pacman.png";
+            pacmanInMove.src = pacmanPicture;
+
+        });
+
+
+
+        hubConnection.on("PrintClyde", (c, map, id, x, y, prevX, prevY) => {
+            var pinkyImage = new Image();
+            pinkyImage.onload = () => {
+                context.fillStyle = "black";
+                context.fillRect(prevX * 16, prevY * 16, 16, 16);
+                context.drawImage(pinkyImage, x * 16, y * 16, 16, 16);
+            };
+            pinkyImage.src = id;
+
+            if (map[prevY][prevX] == "5") {
+                var energizerImage = new Image();
+                energizerImage.onload = () => {
+                    context.drawImage(energizerImage, prevX * 16, prevY * 16, 16, 16);
+                }
+                energizerImage.src = "images/food/energizer.png";
+
+            }
+            if (map[prevY][prevX] == "2") {
+                var image = new Image();
+                image.onload = () => {
+                    context.drawImage(image, prevX * 16, prevY * 16, 16, 16);
+                };
+
+                image.src = "images/food/simple_food.png";
+            };
+
+
+        });
+
+
+
+
+
+        hubConnection.on("PrintInky", (mode, map, id, x, y, prevX, prevY) => {
+             var inkyImage = new Image();
+            inkyImage.onload = () => {
+                context.fillStyle = "black";
+                context.fillRect(prevX * 16, prevY * 16, 16, 16);
+
+                context.drawImage(inkyImage, x * 16, y * 16, 16, 16);
+            };
+            inkyImage.src = id;
+
+            if (map[prevY][prevX] == "5") {
+                var energizerImage = new Image();
+                energizerImage.onload = () => {
+                    context.drawImage(energizerImage, prevX * 16, prevY * 16, 16, 16);
+                }
+                energizerImage.src = "images/food/energizer.png";
+
+            }
+            if (map[prevY][prevX] == "2") {
+                var image = new Image();
+                image.onload = () => {
+                    context.drawImage(image, prevX * 16, prevY * 16, 16, 16);
+                };
+
+                image.src = "images/food/simple_food.png";
+            };
+
+
+        });
+
+
+
+
+        hubConnection.on("PrintPinky", (mode, map, id, x, y, prevX, prevY) => {
+            var pinkyImage = new Image();
+            pinkyImage.onload = () => {
+                context.fillStyle = "black";
+                context.fillRect(prevX * 16, prevY * 16, 16, 16);
+                context.drawImage(pinkyImage, x * 16, y * 16, 16, 16);
+            };
+            pinkyImage.src = id;
+
+            if (map[prevY][prevX] == "5") {
+                var energizerImage = new Image();
+                energizerImage.onload = () => {
+                    context.drawImage(energizerImage, prevX * 16, prevY * 16, 16, 16);
+                }
+                energizerImage.src = "images/food/energizer.png";
+
+            }
+            if (map[prevY][prevX] == "2") {
+                var image = new Image();
+                image.onload = () => {
+                    context.drawImage(image, prevX * 16, prevY * 16, 16, 16);
+                };
+
+                image.src = "images/food/simple_food.png";
+            };
+
+
+        });
+
+        hubConnection.on("PrintBlinky", (mode, map, id, x, y, prevX, prevY) => {
+
+            var blinkyImage = new Image();
+            blinkyImage.onload = () => {
+                context.fillStyle = "black";
+                context.fillRect(prevX * 16, prevY * 16, 16, 16);
+                context.drawImage(blinkyImage, x * 16, y * 16, 16, 16);
+            };
+            blinkyImage.src = id;
+            if (map[prevY][prevX] == "5") {
+                var energizerImage = new Image();
+                energizerImage.onload = () => {
+                    context.drawImage(energizerImage, prevX * 16, prevY * 16, 16, 16);
+                }
+                energizerImage.src = "images/food/energizer.png";
+
+            }
+            if (map[prevY][prevX] == "2") {
+                var image = new Image();
+                image.onload = () => {
+                    context.drawImage(image, prevX * 16, prevY * 16, 16, 16);
+                };
+
+                image.src = "images/food/simple_food.png";
+            };
+
+
+        });
+
+
+
+
+        hubConnection.on("SendMap", (points, level, map) => {
+
+            document.getElementById("FieldForPoints").innerHTML = "Score : " + points;
+            document.getElementById("FieldForLevel").innerHTML = "Level : " + level;
+
+            for (var i in map) {
+                for (var j in map[i]) {
+                    if (map[i][j] == "1") {
+                        myRect.push(new Shape(j * 16, i * 16, 16, 16, "#221BC5"));
+                    }
+
+                    else {
+                        myRect.push(new Shape(j * 16, i * 16, 16, 16, "#000000"));
+                    }
+                }
+            }
+
+            for (var i in myRect) {
+                oRec = myRect[i];
+                context.fillStyle = oRec.fillColor;
+                context.fillRect(oRec.x, oRec.y, oRec.w, oRec.h);
+
+            }
+
+            for (var i = 0; i < map.length; i++) {
+                for (var j = 0; j < map[i].length; j++) {
+                    if (map[i][j] == "5") {
+                        (function () {
+                            var ii = i;
+                            var jj = j;
+                            var energizerImage = new Image();
+                            energizerImage.onload = () => {
+                                context.drawImage(energizerImage, jj * 16, ii * 16, 16, 16);
+                            };
+                            energizerImage.src = "images/food/energizer.png";
+                        })();
+
+                    }
+
+
+                    if (map[i][j] == "2") {
+                        (function () {
+                            var ii = i;
+                            var jj = j;
+                            var image = new Image();
+                            image.onload = () => {
+                                context.drawImage(image, jj * 16, ii * 16, 16, 16);
+                            };
+
+                            image.src = "images/food/simple_food.png";
+                        })();
+                    }
+                }
+            }
+        });
+
+        document.getElementById("Submit").addEventListener("click", function () {
+            document.addEventListener("keydown", function (event) {
+                if (event.keyCode > 36 && event.keyCode < 41)
+                    hubConnection.invoke("PacmanDirection", id, event.keyCode).catch(err => console.error(err.toString()));
+                event.preventDefault();
+            });
+        });
+
+    </script>
+</body>

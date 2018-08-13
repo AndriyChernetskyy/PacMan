@@ -1,0 +1,38 @@
+﻿
+@{
+    ViewData["Title"] = "Results";
+}
+
+@using PacWeb.Models;
+@model List<PlayerInfo>
+
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="~/css/result.css" />
+</head>
+<body>
+    <table id="DataAboutPlayers">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Name</th>
+                <th>Score</th>
+            </tr>
+        </thead>
+        <tbody>
+            @{
+
+
+                foreach (var item in Model)
+                {
+                    <tr>
+                        <td>@item.Id</td>
+                        <td>@item.Name</td>
+                        <td>@item.Score</td>
+                    </tr>
+                }
+            }
+
+        </tbody>
+    </table>
+</body>
