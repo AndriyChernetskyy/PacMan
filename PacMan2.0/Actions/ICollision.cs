@@ -9,6 +9,6 @@ namespace PacMan2._0.Actions
 {
     public interface ICollision
     {
-        void Collide(PacMan pacMan, Ghost ghost, GUI gui);
+        void Collide();
     }
 }

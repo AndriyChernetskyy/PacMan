@@ -8,7 +8,7 @@ namespace PacWeb
 {
     public class ActiveGameCollection
     {
-        public Dictionary<string, GameConnections> games { get; set; }
+        private Dictionary<string, GameConnections> games { get; set; }
         public ActiveGameCollection()
         {
             games = new Dictionary<string, GameConnections>();

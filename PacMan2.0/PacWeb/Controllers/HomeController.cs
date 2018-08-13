@@ -31,7 +31,7 @@ namespace PacWeb.Controllers
             var game = new Game(id);
             activeGameCollection.AddGame(id, new GameConnections(game, _hubContext));
 
-            var query = from b in _context.Players
+            var query = from b in _context.PacMan
                         orderby b.Score descending
                         select b;
             return View(query.ToList());
@@ -40,7 +40,7 @@ namespace PacWeb.Controllers
 
         public IActionResult Results()
         {
-            var query = from b in _context.Players
+            var query = from b in _context.PacMan
                         orderby b.Score descending
                         select b;
             return View(query.ToList());

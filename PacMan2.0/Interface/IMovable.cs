@@ -8,6 +8,6 @@ namespace PacMan2._0.Interface
 {
     public interface IMovable
     {
-        
+        void Move(SidesToMove direction);
     }
 }

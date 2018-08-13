@@ -9,8 +9,11 @@ using PacMan2._0.Map;
 
 namespace PacMan2._0.Algorythms
 {
-    public interface IAlgorythm : IAStar
+    public interface IAlgorythm
     {
-
+        void Execute();
+        List<Location> ResultPath { get; set; }
+        Location From { get; set; }
+        Location To { get; set; }
     }
 }

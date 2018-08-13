@@ -20,7 +20,7 @@ namespace PacWeb.Models
            optionsBuilder.UseSqlServer(@"Server=DESKTOP-L3DGQ0O\SQLEXPRESS;Database=PacManPlayers;Trusted_Connection=True;");
         }
 
-        public virtual DbSet<PlayerInfo> Players { get; set; }
+        public virtual DbSet<PlayerInfo> PacMan { get; set; }
     }
 
     public class PlayerInfo
